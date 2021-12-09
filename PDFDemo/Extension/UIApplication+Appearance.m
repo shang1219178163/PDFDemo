@@ -23,14 +23,14 @@
         UINavigationBar.appearance.standardAppearance = barAppearance;
         UINavigationBar.appearance.scrollEdgeAppearance = barAppearance;
 
-        UITabBarAppearance *tabBarAppearance = [UITabBarAppearance create:tintColor barTintColor:barTintColor font:nil];
+        UITabBarAppearance *tabBarAppearance = [UITabBarAppearance create:barTintColor barTintColor:tintColor font:nil];
         UITabBar.appearance.standardAppearance = tabBarAppearance;
     }
     
     
     [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[UINavigationBar.class]] setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15],} forState:UIControlStateNormal];
     
-    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[UIImagePickerController.class]] setTitleTextAttributes:@{NSForegroundColorAttributeName: UIColor.blackColor,} forState:UIControlStateNormal];
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[UIImagePickerController.class, UIDocumentPickerViewController.class]] setTitleTextAttributes:@{NSForegroundColorAttributeName: UIColor.blackColor,} forState:UIControlStateNormal];
 
     
     UIButton.appearance.titleLabel.adjustsFontSizeToFitWidth = true;
@@ -79,6 +79,7 @@
     UICollectionViewCell.appearance.backgroundColor = UIColor.whiteColor;
     
     UIImageView.appearance.userInteractionEnabled = true;
+    
     UILabel.appearance.userInteractionEnabled = true;
 
     UIPageControl.appearance.pageIndicatorTintColor = barTintColor;
