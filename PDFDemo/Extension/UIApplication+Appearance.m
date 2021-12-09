@@ -129,13 +129,13 @@
     UIBarButtonItemStateAppearance *itemNormal = barAppearance.buttonAppearance.normal;
     itemNormal.titleTextAttributes = @{NSForegroundColorAttributeName: tintColor,
 //                                       NSBackgroundColorAttributeName: barTintColor,
-                                       NSFontAttributeName: font
+                                       NSFontAttributeName: font ? : [UIFont systemFontOfSize:15]
     };
 
     UIBarButtonItemStateAppearance *itemDoneNomal = barAppearance.doneButtonAppearance.normal;
     itemDoneNomal.titleTextAttributes = @{NSForegroundColorAttributeName: tintColor,
 //                                          NSBackgroundColorAttributeName: barTintColor,
-                                          NSFontAttributeName: font
+                                          NSFontAttributeName: font ? : [UIFont systemFontOfSize:15]
     };
     
     

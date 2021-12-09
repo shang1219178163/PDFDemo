@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (Helper)
 
++ (UIImage *)imageWithColor:(UIColor *)color;
+
 @end
 
 NS_ASSUME_NONNULL_END

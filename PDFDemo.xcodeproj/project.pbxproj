@@ -12,11 +12,12 @@
 		14875BC72761BC1D003ED391 /* NSArray+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 14875BC62761BC1D003ED391 /* NSArray+Helper.m */; };
 		14875BCB2761BCD6003ED391 /* 结束语勿畏难，勿轻略.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 14875BC82761BCD5003ED391 /* 结束语勿畏难，勿轻略.pdf */; };
 		14875BCC2761BCD6003ED391 /* 开篇词为什么每一位大前端从业者都应该学习Flutter？.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 14875BC92761BCD6003ED391 /* 开篇词为什么每一位大前端从业者都应该学习Flutter？.pdf */; };
-		14875BCD2761BCD6003ED391 /* 特别放送 ｜ 温故而知新，与你说说专栏的那些思考题.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 14875BCA2761BCD6003ED391 /* 特别放送 ｜ 温故而知新，与你说说专栏的那些思考题.pdf */; };
 		14875BD02761BFC0003ED391 /* PDFView+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 14875BCF2761BFC0003ED391 /* PDFView+Helper.m */; };
 		14875BD32761D478003ED391 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14875BD22761D478003ED391 /* HomeViewController.m */; };
 		14875BD62761D6FA003ED391 /* UIApplication+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 14875BD52761D6FA003ED391 /* UIApplication+Appearance.m */; };
 		14875BDA2761EC68003ED391 /* JFPdfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14875BD92761EC68003ED391 /* JFPdfViewController.m */; };
+		14875BDD2761FA57003ED391 /* UINavigationBar+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 14875BDC2761FA57003ED391 /* UINavigationBar+Helper.m */; };
+		14875BE02761FAFF003ED391 /* UIImage+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 14875BDF2761FAFF003ED391 /* UIImage+Helper.m */; };
 		561180FF219C095F0079A1D4 /* JFSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 561180FE219C095F0079A1D4 /* JFSearchViewController.m */; };
 		56118103219C09780079A1D4 /* JFSeachCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56118101219C09780079A1D4 /* JFSeachCell.m */; };
 		56118104219C09780079A1D4 /* JFSeachCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56118102219C09780079A1D4 /* JFSeachCell.xib */; };
@@ -45,7 +46,6 @@
 		14875BC62761BC1D003ED391 /* NSArray+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Helper.m"; sourceTree = "<group>"; };
 		14875BC82761BCD5003ED391 /* 结束语勿畏难，勿轻略.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "结束语勿畏难，勿轻略.pdf"; sourceTree = "<group>"; };
 		14875BC92761BCD6003ED391 /* 开篇词为什么每一位大前端从业者都应该学习Flutter？.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "开篇词为什么每一位大前端从业者都应该学习Flutter？.pdf"; sourceTree = "<group>"; };
-		14875BCA2761BCD6003ED391 /* 特别放送 ｜ 温故而知新，与你说说专栏的那些思考题.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "特别放送 ｜ 温故而知新，与你说说专栏的那些思考题.pdf"; sourceTree = "<group>"; };
 		14875BCE2761BFC0003ED391 /* PDFView+Helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PDFView+Helper.h"; sourceTree = "<group>"; };
 		14875BCF2761BFC0003ED391 /* PDFView+Helper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PDFView+Helper.m"; sourceTree = "<group>"; };
 		14875BD12761D478003ED391 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -54,6 +54,10 @@
 		14875BD52761D6FA003ED391 /* UIApplication+Appearance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+Appearance.m"; sourceTree = "<group>"; };
 		14875BD82761EC68003ED391 /* JFPdfViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JFPdfViewController.h; sourceTree = "<group>"; };
 		14875BD92761EC68003ED391 /* JFPdfViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JFPdfViewController.m; sourceTree = "<group>"; };
+		14875BDB2761FA57003ED391 /* UINavigationBar+Helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Helper.h"; sourceTree = "<group>"; };
+		14875BDC2761FA57003ED391 /* UINavigationBar+Helper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Helper.m"; sourceTree = "<group>"; };
+		14875BDE2761FAFF003ED391 /* UIImage+Helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Helper.h"; sourceTree = "<group>"; };
+		14875BDF2761FAFF003ED391 /* UIImage+Helper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Helper.m"; sourceTree = "<group>"; };
 		561180FD219C095F0079A1D4 /* JFSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JFSearchViewController.h; sourceTree = "<group>"; };
 		561180FE219C095F0079A1D4 /* JFSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JFSearchViewController.m; sourceTree = "<group>"; };
 		56118100219C09780079A1D4 /* JFSeachCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JFSeachCell.h; sourceTree = "<group>"; };
@@ -98,7 +102,6 @@
 			children = (
 				14875BC82761BCD5003ED391 /* 结束语勿畏难，勿轻略.pdf */,
 				14875BC92761BCD6003ED391 /* 开篇词为什么每一位大前端从业者都应该学习Flutter？.pdf */,
-				14875BCA2761BCD6003ED391 /* 特别放送 ｜ 温故而知新，与你说说专栏的那些思考题.pdf */,
 				5655DF3A219965BD00239544 /* Assets.xcassets */,
 				5655DF472199664700239544 /* sample.pdf */,
 				5655DF4F21997FE400239544 /* swift.pdf */,
@@ -121,6 +124,10 @@
 				14875BCF2761BFC0003ED391 /* PDFView+Helper.m */,
 				14875BD42761D6FA003ED391 /* UIApplication+Appearance.h */,
 				14875BD52761D6FA003ED391 /* UIApplication+Appearance.m */,
+				14875BDB2761FA57003ED391 /* UINavigationBar+Helper.h */,
+				14875BDC2761FA57003ED391 /* UINavigationBar+Helper.m */,
+				14875BDE2761FAFF003ED391 /* UIImage+Helper.h */,
+				14875BDF2761FAFF003ED391 /* UIImage+Helper.m */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -240,7 +247,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				56118104219C09780079A1D4 /* JFSeachCell.xib in Resources */,
-				14875BCD2761BCD6003ED391 /* 特别放送 ｜ 温故而知新，与你说说专栏的那些思考题.pdf in Resources */,
 				5655DF482199664700239544 /* sample.pdf in Resources */,
 				5655DF3E219965BD00239544 /* LaunchScreen.storyboard in Resources */,
 				56C76B8A219AC37C00BFBA30 /* arrow_right.png in Resources */,
@@ -262,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				561180FF219C095F0079A1D4 /* JFSearchViewController.m in Sources */,
+				14875BDD2761FA57003ED391 /* UINavigationBar+Helper.m in Sources */,
 				14875BC72761BC1D003ED391 /* NSArray+Helper.m in Sources */,
 				5655DF4B21996D2A00239544 /* JFThumbnailViewController.m in Sources */,
 				5655DF41219965BD00239544 /* main.m in Sources */,
@@ -271,6 +278,7 @@
 				14875BD62761D6FA003ED391 /* UIApplication+Appearance.m in Sources */,
 				14875BDA2761EC68003ED391 /* JFPdfViewController.m in Sources */,
 				14875BD02761BFC0003ED391 /* PDFView+Helper.m in Sources */,
+				14875BE02761FAFF003ED391 /* UIImage+Helper.m in Sources */,
 				56C76B85219AC2CF00BFBA30 /* JFOutlineCell.m in Sources */,
 				14875BC12761A6AE003ED391 /* PDFDocument+Helper.m in Sources */,
 				5655DF4E21996D4B00239544 /* JFThumbnailCell.m in Sources */,

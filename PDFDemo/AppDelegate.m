@@ -26,7 +26,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     UIViewController *vc = [[JFPdfViewController alloc] init];
-//    vc = [[HomeViewController alloc] init];
+    vc = [[HomeViewController alloc] init];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [self.window makeKeyAndVisible];

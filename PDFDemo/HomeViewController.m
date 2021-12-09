@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "JFPdfViewController.h"
+#import "UINavigationBar+Helper.h"
 
 @interface HomeViewController ()
 
@@ -24,6 +25,9 @@
     self.view.backgroundColor = UIColor.whiteColor;
 
     self.title = @"PDFDemo";
+    UIBarButtonItem *menuItem = [[UIBarButtonItem alloc] initWithTitle:@"blue" style:UIBarButtonItemStylePlain target:self action:@selector(themAction:)];
+    UIBarButtonItem *selectItem = [[UIBarButtonItem alloc] initWithTitle:@"white" style:UIBarButtonItemStylePlain target:self action:@selector(themAction:)];
+    self.navigationItem.rightBarButtonItems = @[menuItem, selectItem];
     
     [self.view addSubview:self.button];
     
@@ -33,6 +37,14 @@
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     
+}
+
+- (void)themAction: (UIBarButtonItem *)item {
+    if ([item.title isEqualToString:@"white"]) {
+        [self.navigationController.navigationBar setColor:UIColor.blackColor barTintColor:UIColor.whiteColor shadowColor:nil];
+    } else {
+        [self.navigationController.navigationBar setColor:UIColor.whiteColor barTintColor:UIColor.systemBlueColor shadowColor:nil];
+    }
 }
 
 - (void)openPDFReader {
