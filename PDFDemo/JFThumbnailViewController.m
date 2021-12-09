@@ -36,54 +36,42 @@ NSString * const thumbnailViewControllerCollectionViewCellID = @"thumbnailViewCo
     [self setupUI];
 }
 
-- (void)setupUI
-{
+- (void)setupUI {
     [self.view addSubview:self.collectionView];
 }
 
-- (void)dismissController
-{
+- (void)dismissController {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - --- UICollectionView DataSource ---
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.pdfDocument.pageCount;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    JFThumbnailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:thumbnailViewControllerCollectionViewCellID forIndexPath:indexPath];
-    
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PDFPage *page = [self.pdfDocument pageAtIndex:indexPath.item];
-    
-    cell.lblPage.text = page.label;
-    
-    NSString *key = [NSString stringWithFormat:@"%ld",(long)indexPath.item];
-    
+    NSString *key = [NSString stringWithFormat:@"%ld", (long)indexPath.item];
     UIImage *thumbnailImage = [thumbnailCache objectForKey:key];
+
+    JFThumbnailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:thumbnailViewControllerCollectionViewCellID forIndexPath:indexPath];
+    cell.lblPage.text = page.label;
     
     CGSize imageSize = CGSizeMake(cell.bounds.size.width * 2, cell.bounds.size.height * 2);
     
-    if (thumbnailImage)
-    {
+    if (thumbnailImage) {
         cell.imgViewThumb.image = thumbnailImage;
-    }
-    else
-    {
+    } else {
         dispatch_async(queue, ^{
             
             UIImage *thumbnailImage = [page thumbnailOfSize:imageSize forBox:kPDFDisplayBoxMediaBox];
             [self->thumbnailCache setObject:thumbnailImage forKey:key];
             dispatch_async(dispatch_get_main_queue(), ^{
-                
                 cell.imgViewThumb.image = thumbnailImage;
                 
             });
@@ -93,29 +81,26 @@ NSString * const thumbnailViewControllerCollectionViewCellID = @"thumbnailViewCo
     return cell;
 }
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
+                        layout:(UICollectionViewLayout *)collectionViewLayout
+        insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(10, 10, 10, 10);
 }
 
 #pragma mark - --- UICollectionView Delegate ---
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(thumbnailViewController:didSelectAtIndex:)])
-    {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(thumbnailViewController:didSelectAtIndex:)]) {
         [self.delegate thumbnailViewController:self didSelectAtIndex:indexPath];
     }
 }
 
 #pragma mark - --- setter & getter ---
 
-- (UICollectionView *)collectionView
-{
-    if (!_collectionView)
-    {
+- (UICollectionView *)collectionView {
+    if (!_collectionView) {
         CGFloat itemWidth = floor(([UIScreen mainScreen].bounds.size.width - 10 * 4) / 3.0);
         CGFloat itemHeight = itemWidth * 1.5;
         

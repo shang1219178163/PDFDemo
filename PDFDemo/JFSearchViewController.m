@@ -15,7 +15,7 @@ NSString * const searchViewControllerTableViewCellID = @"searchViewControllerTab
 
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *arrData;
+@property (nonatomic, strong) NSMutableArray *marr;
 
 @end
 
@@ -30,41 +30,32 @@ NSString * const searchViewControllerTableViewCellID = @"searchViewControllerTab
     [self.view addSubview:self.tableView];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [self.searchBar becomeFirstResponder];
 }
 
-- (void)cancleAction
-{
+- (void)cancleAction {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - --- UITableView DataSource ---
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.arrData.count;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.marr.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    JFSeachCell *cell = [tableView dequeueReusableCellWithIdentifier:searchViewControllerTableViewCellID forIndexPath:indexPath];
-    
-    PDFSelection *selection = self.arrData[indexPath.row];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    PDFSelection *selection = self.marr[indexPath.row];
     PDFPage *page = selection.pages[0];
     PDFOutline *outline = [self.pdfDocment outlineItemForSelection:selection];
     
     NSString *destinationStr = [NSString stringWithFormat:@"%@  PAGE: %@", outline.label, page.label];
-    
-    cell.lblDestination.text = destinationStr;
     
     PDFSelection *extendSelection = [selection copy];
     [extendSelection extendSelectionAtStart:10];
@@ -75,6 +66,10 @@ NSString * const searchViewControllerTableViewCellID = @"searchViewControllerTab
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:extendSelection.string];
     [attrStr addAttribute:NSBackgroundColorAttributeName value:[UIColor yellowColor] range:range];
     
+    JFSeachCell *cell = [tableView dequeueReusableCellWithIdentifier:searchViewControllerTableViewCellID forIndexPath:indexPath];
+    
+    cell.lblDestination.text = destinationStr;
+    
     cell.lblResult.attributedText = attrStr;
     
     return cell;
@@ -82,14 +77,12 @@ NSString * const searchViewControllerTableViewCellID = @"searchViewControllerTab
 
 #pragma mark - --- UITableView Delegate ---
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"%s",__func__);
     
-    PDFSelection *selection = self.arrData[indexPath.row];
+    PDFSelection *selection = self.marr[indexPath.row];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(searchViewController:didSelectSearchResult:)])
-    {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(searchViewController:didSelectSearchResult:)]) {
         [self.delegate searchViewController:self didSelectSearchResult:selection];
     }
     
@@ -98,32 +91,27 @@ NSString * const searchViewControllerTableViewCellID = @"searchViewControllerTab
 
 #pragma mark - --- UIScrollView Delegate ---
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.searchBar resignFirstResponder];
 }
 
 #pragma mark - --- UISearchBar Delegate ---
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [self.pdfDocment cancelFindString];
     [self cancleAction];
 }
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
-    if (searchText.length < 2)
-    {
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchText.length < 2) {
         return;
     }
     
-    [self.arrData removeAllObjects];
+    [self.marr removeAllObjects];
     [self.tableView reloadData];
     
     [self.pdfDocment cancelFindString];
@@ -133,18 +121,15 @@ NSString * const searchViewControllerTableViewCellID = @"searchViewControllerTab
 
 #pragma mark - --- PDFDocument Delegate ---
 
-- (void)didMatchString:(PDFSelection *)instance
-{
-    [self.arrData addObject:instance];
+- (void)didMatchString:(PDFSelection *)instance {
+    [self.marr addObject:instance];
     [self.tableView reloadData];
 }
 
 #pragma mark - --- setter & getter ---
 
-- (UISearchBar *)searchBar
-{
-    if (!_searchBar)
-    {
+- (UISearchBar *)searchBar {
+    if (!_searchBar) {
         _searchBar = [[UISearchBar alloc] init];
         _searchBar.delegate = self;
         _searchBar.showsCancelButton = YES;
@@ -154,10 +139,8 @@ NSString * const searchViewControllerTableViewCellID = @"searchViewControllerTab
     return _searchBar;
 }
 
-- (UITableView *)tableView
-{
-    if (!_tableView)
-    {
+- (UITableView *)tableView {
+    if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -169,14 +152,12 @@ NSString * const searchViewControllerTableViewCellID = @"searchViewControllerTab
     return _tableView;
 }
 
-- (NSMutableArray *)arrData
-{
-    if (!_arrData)
-    {
-        _arrData = [[NSMutableArray alloc] init];
+- (NSMutableArray *)marr {
+    if (!_marr) {
+        _marr = [[NSMutableArray alloc] init];
     }
     
-    return _arrData;
+    return _marr;
 }
 
 @end

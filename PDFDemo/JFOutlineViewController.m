@@ -31,55 +31,39 @@ NSString * const outlineViewControllerCellID = @"outlineViewControllerCellID";
     [self.view addSubview:self.tableView];
 }
 
-- (void)cancleAction
-{
+- (void)cancleAction {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - --- Customed Methods ---
 
-- (void)insertOulineWithParentOutline:(PDFOutline *)parentOutline
-{
+- (void)insertOulineWithParentOutline:(PDFOutline *)parentOutline {
     NSInteger baseIndex = [self.arrData indexOfObject:parentOutline];
     
-    for (int i = 0; i < parentOutline.numberOfChildren; i++)
-    {
+    for (int i = 0; i < parentOutline.numberOfChildren; i++) {
         PDFOutline *tempOuline = [parentOutline childAtIndex:i];
         tempOuline.isOpen = NO;
         [self.arrData insertObject:tempOuline atIndex:baseIndex + i + 1];
     }
 }
 
-- (void)removeOutlineWithParentOuline:(PDFOutline *)parentOutline
-{
-    if (parentOutline.numberOfChildren <= 0)
-    {
-        return;
-    }
+- (void)removeOutlineWithParentOuline:(PDFOutline *)parentOutline {
+    if (parentOutline.numberOfChildren <= 0) return;
     
-    for (int i = 0; i < parentOutline.numberOfChildren; i++)
-    {
+    for (int i = 0; i < parentOutline.numberOfChildren; i++) {
         PDFOutline *node = [parentOutline childAtIndex:i];
         
-        if (node.numberOfChildren > 0 && node.isOpen)
-        {
+        if (node.numberOfChildren > 0 && node.isOpen) {
             [self removeOutlineWithParentOuline:node];
             
             NSInteger index = [self.arrData indexOfObject:node];
-            
-            if (index)
-            {
+            if (index) {
                 [self.arrData removeObjectAtIndex:index];
             }
-        }
-        else
-        {
-            if ([self.arrData containsObject:node])
-            {
+        } else {
+            if ([self.arrData containsObject:node]) {
                 NSInteger index = [self.arrData indexOfObject:node];
-                
-                if (index)
-                {
+                if (index) {
                     [self.arrData removeObjectAtIndex:index];
                 }
             }
@@ -87,13 +71,11 @@ NSString * const outlineViewControllerCellID = @"outlineViewControllerCellID";
     }
 }
 
-- (NSInteger)findDepthWithOutline:(PDFOutline *)outline
-{
+- (NSInteger)findDepthWithOutline:(PDFOutline *)outline {
     NSInteger depth = -1;
     PDFOutline *tempOutline = outline;
     
-    while (tempOutline.parent != nil)
-    {
+    while (tempOutline.parent != nil) {
         depth++;
         tempOutline = tempOutline.parent;
     }
@@ -103,18 +85,15 @@ NSString * const outlineViewControllerCellID = @"outlineViewControllerCellID";
 
 #pragma mark - --- UITableView DataSource ---
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.arrData.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     JFOutlineCell *cell = [tableView dequeueReusableCellWithIdentifier:outlineViewControllerCellID forIndexPath:indexPath];
     
     PDFOutline *outline = self.arrData[indexPath.row];
@@ -122,43 +101,33 @@ NSString * const outlineViewControllerCellID = @"outlineViewControllerCellID";
     cell.lblTitle.text = outline.label;
     cell.lblPage.text = outline.destination.page.label;
     cell.btnArrow.selected = outline.isOpen;
-    
-    if (outline.numberOfChildren > 0)
-    {
-        [cell.btnArrow setImage:outline.isOpen ? [UIImage imageNamed:@"arrow_down"] : [UIImage imageNamed:@"arrow_right"] forState:UIControlStateNormal];
-        [cell.btnArrow setEnabled:YES];
-    }
-    else
-    {
+    cell.btnArrow.enabled = outline.numberOfChildren > 0;
+
+    if (outline.numberOfChildren > 0) {
+        UIImage *image = outline.isOpen ? [UIImage imageNamed:@"arrow_down"] : [UIImage imageNamed:@"arrow_right"];
+        [cell.btnArrow setImage:image forState:UIControlStateNormal];
+    } else {
         [cell.btnArrow setImage:nil forState:UIControlStateNormal];
-        [cell.btnArrow setEnabled:NO];
     }
     
     cell.outlineBlock = ^(UIButton * _Nonnull button) {
+        if (outline.numberOfChildren <= 0) return;
+        outline.isOpen = button.isSelected;
 
-        if (outline.numberOfChildren > 0)
-        {
-            if (button.isSelected)
-            {
-                outline.isOpen = YES;
-                [self insertOulineWithParentOutline:outline];
-            }
-            else
-            {
-                outline.isOpen = NO;
-                [self removeOutlineWithParentOuline:outline];
-            }
-
-            [tableView reloadData];
+        if (button.isSelected){
+            [self insertOulineWithParentOutline:outline];
+        } else {
+            [self removeOutlineWithParentOuline:outline];
         }
 
+        [tableView reloadData];
+        
     };
     
     return cell;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {
     PDFOutline *outline = self.arrData[indexPath.row];
     NSInteger depth = [self findDepthWithOutline:outline];
     
@@ -167,14 +136,12 @@ NSString * const outlineViewControllerCellID = @"outlineViewControllerCellID";
 
 #pragma mark - --- UITableView Delegate ---
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"%s",__func__);
     
     PDFOutline *outline = [self.arrData objectAtIndex:indexPath.row];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(outlineViewController:didSelectOutline:)])
-    {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(outlineViewController:didSelectOutline:)]) {
         [self.delegate outlineViewController:self didSelectOutline:outline];
     }
     
@@ -183,10 +150,8 @@ NSString * const outlineViewControllerCellID = @"outlineViewControllerCellID";
 
 #pragma mark - --- Setter & Getter ---
 
-- (UITableView *)tableView
-{
-    if (!_tableView)
-    {
+- (UITableView *)tableView {
+    if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -197,22 +162,18 @@ NSString * const outlineViewControllerCellID = @"outlineViewControllerCellID";
     return _tableView;
 }
 
-- (NSMutableArray *)arrData
-{
-    if (!_arrData)
-    {
+- (NSMutableArray *)arrData {
+    if (!_arrData) {
         _arrData = [[NSMutableArray alloc] init];
     }
     
     return _arrData;
 }
 
-- (void)setOutlineRoot:(PDFOutline *)outlineRoot
-{
+- (void)setOutlineRoot:(PDFOutline *)outlineRoot {
     _outlineRoot = outlineRoot;
     
-    for (int i = 0; i < outlineRoot.numberOfChildren; i++)
-    {
+    for (int i = 0; i < outlineRoot.numberOfChildren; i++) {
         PDFOutline *outline = [outlineRoot childAtIndex:i];
         outline.isOpen = NO;
         [self.arrData addObject:outline];

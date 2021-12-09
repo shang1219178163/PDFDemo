@@ -14,20 +14,15 @@
 
 @implementation JFThumbnailCell
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    
-    if (self)
-    {
+    if (self) {
         [self setupUI];
     }
-    
     return self;
 }
 
-- (void)setupUI
-{
+- (void)setupUI {
     CGFloat cellWidth = floor(([UIScreen mainScreen].bounds.size.width - 10 * 4) / 3.0);
     CGFloat cellHeight = cellWidth * 1.5;
     

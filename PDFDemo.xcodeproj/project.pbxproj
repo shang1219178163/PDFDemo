@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		140AE2A627619B67000DB0B3 /* UIAlertController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 140AE2A427619B67000DB0B3 /* UIAlertController+Helper.m */; };
 		561180FF219C095F0079A1D4 /* JFSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 561180FE219C095F0079A1D4 /* JFSearchViewController.m */; };
 		56118103219C09780079A1D4 /* JFSeachCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56118101219C09780079A1D4 /* JFSeachCell.m */; };
 		56118104219C09780079A1D4 /* JFSeachCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56118102219C09780079A1D4 /* JFSeachCell.xib */; };
-		56118106219C2A4A0079A1D4 /* japanese.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 56118105219C2A4A0079A1D4 /* japanese.pdf */; };
 		5655DF33219965BC00239544 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5655DF32219965BC00239544 /* AppDelegate.m */; };
 		5655DF36219965BC00239544 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5655DF35219965BC00239544 /* ViewController.m */; };
 		5655DF39219965BC00239544 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5655DF37219965BC00239544 /* Main.storyboard */; };
@@ -29,12 +29,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		140AE2A327619B67000DB0B3 /* UIAlertController+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Helper.h"; sourceTree = "<group>"; };
+		140AE2A427619B67000DB0B3 /* UIAlertController+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Helper.m"; sourceTree = "<group>"; };
 		561180FD219C095F0079A1D4 /* JFSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JFSearchViewController.h; sourceTree = "<group>"; };
 		561180FE219C095F0079A1D4 /* JFSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JFSearchViewController.m; sourceTree = "<group>"; };
 		56118100219C09780079A1D4 /* JFSeachCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JFSeachCell.h; sourceTree = "<group>"; };
 		56118101219C09780079A1D4 /* JFSeachCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JFSeachCell.m; sourceTree = "<group>"; };
 		56118102219C09780079A1D4 /* JFSeachCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JFSeachCell.xib; sourceTree = "<group>"; };
-		56118105219C2A4A0079A1D4 /* japanese.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = japanese.pdf; path = "../../../Downloads/BookReader-master/BookReader/japanese.pdf"; sourceTree = "<group>"; };
 		5655DF2E219965BC00239544 /* PDFDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PDFDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5655DF31219965BC00239544 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5655DF32219965BC00239544 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -71,6 +72,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14875BBD2761A510003ED391 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				5655DF3A219965BD00239544 /* Assets.xcassets */,
+				5655DF472199664700239544 /* sample.pdf */,
+				5655DF4F21997FE400239544 /* swift.pdf */,
+				56C76B87219AC37300BFBA30 /* arrow_down.png */,
+				56C76B89219AC37C00BFBA30 /* arrow_right.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		14875BBE2761A536003ED391 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				140AE2A327619B67000DB0B3 /* UIAlertController+Helper.h */,
+				140AE2A427619B67000DB0B3 /* UIAlertController+Helper.m */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		5655DF25219965BC00239544 = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +112,8 @@
 		5655DF30219965BC00239544 /* PDFDemo */ = {
 			isa = PBXGroup;
 			children = (
+				14875BBE2761A536003ED391 /* Extension */,
+				14875BBD2761A510003ED391 /* Resource */,
 				5655DF31219965BC00239544 /* AppDelegate.h */,
 				5655DF32219965BC00239544 /* AppDelegate.m */,
 				5655DF34219965BC00239544 /* ViewController.h */,
@@ -109,15 +133,9 @@
 				56118101219C09780079A1D4 /* JFSeachCell.m */,
 				56118102219C09780079A1D4 /* JFSeachCell.xib */,
 				5655DF37219965BC00239544 /* Main.storyboard */,
-				5655DF3A219965BD00239544 /* Assets.xcassets */,
 				5655DF3C219965BD00239544 /* LaunchScreen.storyboard */,
 				5655DF3F219965BD00239544 /* Info.plist */,
 				5655DF40219965BD00239544 /* main.m */,
-				56118105219C2A4A0079A1D4 /* japanese.pdf */,
-				5655DF472199664700239544 /* sample.pdf */,
-				5655DF4F21997FE400239544 /* swift.pdf */,
-				56C76B87219AC37300BFBA30 /* arrow_down.png */,
-				56C76B89219AC37C00BFBA30 /* arrow_right.png */,
 			);
 			path = PDFDemo;
 			sourceTree = "<group>";
@@ -187,7 +205,6 @@
 				56C76B86219AC2CF00BFBA30 /* JFOutlineCell.xib in Resources */,
 				5655DF5021997FE400239544 /* swift.pdf in Resources */,
 				5655DF3B219965BD00239544 /* Assets.xcassets in Resources */,
-				56118106219C2A4A0079A1D4 /* japanese.pdf in Resources */,
 				5655DF39219965BC00239544 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,6 +220,7 @@
 				5655DF36219965BC00239544 /* ViewController.m in Sources */,
 				5655DF4B21996D2A00239544 /* JFThumbnailViewController.m in Sources */,
 				5655DF41219965BD00239544 /* main.m in Sources */,
+				140AE2A627619B67000DB0B3 /* UIAlertController+Helper.m in Sources */,
 				56C76B7C219A724200BFBA30 /* JFOutlineViewController.m in Sources */,
 				56C76B85219AC2CF00BFBA30 /* JFOutlineCell.m in Sources */,
 				5655DF4E21996D4B00239544 /* JFThumbnailCell.m in Sources */,

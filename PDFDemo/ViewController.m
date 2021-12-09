@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import <PDFKit/PDFKit.h>
+#import "UIAlertController+Helper.h"
 #import "JFThumbnailViewController.h"
 #import "JFOutlineViewController.h"
 #import "JFSearchViewController.h"
@@ -40,8 +41,7 @@
     [self setupPDFView];
 }
 
-- (void)setupPDFView
-{
+- (void)setupPDFView {
     NSString *pdfPath = [[NSBundle mainBundle] pathForResource:@"swift" ofType:@"pdf"];
     NSURL *pdfUrl = [NSURL fileURLWithPath:pdfPath];
     PDFDocument *docunment = [[PDFDocument alloc] initWithURL:pdfUrl];
@@ -75,16 +75,14 @@
 
 #pragma mark - --- JFThumbnailViewController Delegate ---
 
-- (void)thumbnailViewController:(JFThumbnailViewController *)controller didSelectAtIndex:(NSIndexPath *)indexPath
-{
+- (void)thumbnailViewController:(JFThumbnailViewController *)controller didSelectAtIndex:(NSIndexPath *)indexPath {
     PDFPage *page = [self.document pageAtIndex:indexPath.item];
     [self.pdfView goToPage:page];
 }
 
 #pragma mark - --- JFOutlineViewController Delegate ---
 
-- (void)outlineViewController:(JFOutlineViewController *)controller didSelectOutline:(PDFOutline *)outline
-{
+- (void)outlineViewController:(JFOutlineViewController *)controller didSelectOutline:(PDFOutline *)outline {
     NSLog(@"%s",__func__);
     PDFAction *action = outline.action;
     PDFActionGoTo *goToAction = (PDFActionGoTo *)action;
@@ -97,8 +95,7 @@
 
 #pragma mark - --- JFSearchViewController Delegate ---
 
-- (void)searchViewController:(JFSearchViewController *)controller didSelectSearchResult:(PDFSelection *)selection
-{
+- (void)searchViewController:(JFSearchViewController *)controller didSelectSearchResult:(PDFSelection *)selection {
     selection.color = [UIColor yellowColor];
     self.pdfView.currentSelection = selection;
     [self.pdfView goToSelection:selection];
@@ -106,8 +103,7 @@
 
 #pragma mark - --- Customed Action ---
 
-- (void)thumbnailAction
-{
+- (void)thumbnailAction {
     NSLog(@"%s",__func__);
     
     JFThumbnailViewController *thumbnailViewController = [[JFThumbnailViewController alloc] init];
@@ -117,31 +113,30 @@
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:thumbnailViewController] animated:YES completion:nil];
 }
 
-- (void)outlineAction
-{
+- (void)outlineAction {
     NSLog(@"%s",__func__);
     
     PDFOutline *outline = self.document.outlineRoot;
     
-    if (outline)
-    {
+    if (outline) {
         JFOutlineViewController *outlineViewController = [[JFOutlineViewController alloc] init];
         outlineViewController.outlineRoot = outline;
         outlineViewController.delegate = self;
         
         [self presentViewController:[[UINavigationController alloc] initWithRootViewController:outlineViewController] animated:YES completion:nil];
-    }
-    else
-    {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Attention" message:@"This pdf do not have outline!" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    } else {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Attention"
+                                                                                 message:@"This pdf do not have outline!"
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:nil];
         [alertController addAction:action];
         [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 
-- (void)searchAction
-{
+- (void)searchAction {
     NSLog(@"%s",__func__);
     
     JFSearchViewController *searchViewController = [[JFSearchViewController alloc] init];
@@ -151,56 +146,34 @@
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:searchViewController] animated:YES completion:nil];
 }
 
-- (void)changeAction
-{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Change a file." message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+- (void)changeAction {
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"Change a file." message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    
+    [alertVC addActionTitles:@[@"sample.pdf", @"swift.pdf"] handler:^(UIAlertController * _Nonnull vc, UIAlertAction * _Nonnull action) {
+//        NSString *pdfPath = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"pdf"];
+        NSString *pdfPath = [[NSBundle mainBundle] pathForResource:action.title ofType:nil];
+
+        NSURL *pdfUrl = [NSURL fileURLWithPath:pdfPath];
+        PDFDocument *docunment = [[PDFDocument alloc] initWithURL:pdfUrl];
+        
+        self.document = docunment;
+        self.pdfView.document = docunment;
+        self.pdfView.scaleFactor = self.pdfView.scaleFactorForSizeToFit;
+    }];
+    
     
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"Cancle" style:UIAlertActionStyleCancel handler:nil];
+    [alertVC addAction:action];
     
-    UIAlertAction *searchAction = [UIAlertAction actionWithTitle:@"Sample" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        NSString *pdfPath = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"pdf"];
-        NSURL *pdfUrl = [NSURL fileURLWithPath:pdfPath];
-        PDFDocument *docunment = [[PDFDocument alloc] initWithURL:pdfUrl];
-        
-        self.document = docunment;
-        self.pdfView.document = docunment;
-        self.pdfView.scaleFactor = self.pdfView.scaleFactorForSizeToFit;
-    }];
-    UIAlertAction *outlineAction = [UIAlertAction actionWithTitle:@"Japanese" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        NSString *pdfPath = [[NSBundle mainBundle] pathForResource:@"japanese" ofType:@"pdf"];
-        NSURL *pdfUrl = [NSURL fileURLWithPath:pdfPath];
-        PDFDocument *docunment = [[PDFDocument alloc] initWithURL:pdfUrl];
-        
-        self.document = docunment;
-        self.pdfView.document = docunment;
-        self.pdfView.scaleFactor = self.pdfView.scaleFactorForSizeToFit;
-    }];
-    UIAlertAction *thumbAction = [UIAlertAction actionWithTitle:@"Swift" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-       
-        NSString *pdfPath = [[NSBundle mainBundle] pathForResource:@"swift" ofType:@"pdf"];
-        NSURL *pdfUrl = [NSURL fileURLWithPath:pdfPath];
-        PDFDocument *docunment = [[PDFDocument alloc] initWithURL:pdfUrl];
-        
-        self.document = docunment;
-        self.pdfView.document = docunment;
-        self.pdfView.scaleFactor = self.pdfView.scaleFactorForSizeToFit;
-    }];
-    
-    [alertController addAction:searchAction];
-    [alertController addAction:outlineAction];
-    [alertController addAction:thumbAction];
-    [alertController addAction:action];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-    
+    [self presentViewController:alertVC animated:YES completion:nil];
     
 }
 
-- (void)menuAction
-{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Menu" message:@"Select an action." preferredStyle:UIAlertControllerStyleActionSheet];
+- (void)menuAction {
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"Menu"
+                                                                             message:@"Select an action."
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"Cancle" style:UIAlertActionStyleCancel handler:nil];
     
@@ -214,21 +187,19 @@
         [self thumbnailAction];
     }];
     
-    [alertController addAction:searchAction];
-    [alertController addAction:outlineAction];
-    [alertController addAction:thumbAction];
-    [alertController addAction:action];
+    [alertVC addAction:searchAction];
+    [alertVC addAction:outlineAction];
+    [alertVC addAction:thumbAction];
+    [alertVC addAction:action];
     
-    [self presentViewController:alertController animated:YES completion:nil];
+    [self presentViewController:alertVC animated:YES completion:nil];
 }
 
-- (void)singleTapAction
-{
+- (void)singleTapAction {
     NSLog(@"%s",__func__);
+    self.zoomBaseView.hidden = NO;
 
-    if (self.hasDisplay)
-    {
-        self.zoomBaseView.hidden = NO;
+    if (self.hasDisplay) {
         self.zoomBaseView.alpha = 1.0;
         
         [UIView animateWithDuration:0.2 animations:^{
@@ -236,10 +207,7 @@
         } completion:^(BOOL finished) {
             self.zoomBaseView.hidden = YES;
         }];
-    }
-    else
-    {
-        self.zoomBaseView.hidden = NO;
+    } else {
         self.zoomBaseView.alpha = 0.0;
         
         [UIView animateWithDuration:0.2 animations:^{
@@ -252,30 +220,14 @@
     self.hasDisplay = !self.hasDisplay;
 }
 
-- (void)doubleTapAction
-{
-    NSLog(@"%s",__func__);
-    
-    NSLog(@"%f",self.pdfView.scaleFactorForSizeToFit);
-    
-    if (self.pdfView.scaleFactor == self.pdfView.scaleFactorForSizeToFit)
-    {
-        [UIView animateWithDuration:0.2 animations:^{
-            self.pdfView.scaleFactor = self.pdfView.scaleFactorForSizeToFit * 4;
-        }];
-    }
-    else
-    {
-        [UIView animateWithDuration:0.2 animations:^{
-            self.pdfView.scaleFactor = self.pdfView.scaleFactorForSizeToFit;
-        }];
-    }
+- (void)doubleTapAction {
+    NSLog(@"%f_%f", self.pdfView.scaleFactor, self.pdfView.scaleFactorForSizeToFit);
+    [UIView animateWithDuration:0.15 animations:^{
+        self.pdfView.scaleFactor = self.pdfView.scaleFactorForSizeToFit * (self.pdfView.scaleFactor == self.pdfView.scaleFactorForSizeToFit ? 2 : 1);
+    }];
 }
 
-- (void)zoomInAction
-{
-    NSLog(@"%s",__func__);
-    
+- (void)zoomInAction {
     [UIView animateWithDuration:0.1 animations:^{
         [self.pdfView zoomIn:nil];
     } completion:^(BOOL finished) {
@@ -283,10 +235,7 @@
     }];
 }
 
-- (void)zoomOutAction
-{
-    NSLog(@"%s",__func__);
-    
+- (void)zoomOutAction {
     [UIView animateWithDuration:0.1 animations:^{
         [self.pdfView zoomOut:nil];
     } completion:^(BOOL finished) {
@@ -296,10 +245,8 @@
 
 #pragma mark - --- setter & getter ---
 
-- (UIView *)zoomBaseView
-{
-    if (!_zoomBaseView)
-    {
+- (UIView *)zoomBaseView {
+    if (!_zoomBaseView) {
         UIColor *blueColor = [UIColor colorWithRed:21/255.0 green:126/255.0 blue:251/255.0 alpha:1.0];
         
         _zoomBaseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 100)];
