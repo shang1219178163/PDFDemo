@@ -53,8 +53,18 @@ NSString * const kAlertContentViewController = @"contentViewController";
 
 - (UIAlertController * _Nonnull (^)(BOOL, void (^ _Nullable)(void)))present{
     return ^(BOOL animated, void(^completion)(void)){
-        UIWindow *window = UIApplication.sharedApplication.keyWindow ? : UIApplication.sharedApplication.windows.firstObject;
-        [window.rootViewController presentViewController:self animated:animated completion:completion];
+        UIWindow *keyWindow = UIApplication.sharedApplication.keyWindow ? : UIApplication.sharedApplication.windows.firstObject;
+        if (self.preferredStyle == UIAlertControllerStyleAlert) {
+            if (self.actions.count == 0) {
+                [keyWindow.rootViewController presentViewController:self animated:animated completion:^{
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self dismissViewControllerAnimated:animated completion:completion];
+                    });
+                }];
+            } else {
+                [keyWindow.rootViewController presentViewController:self animated:animated completion:completion];
+            }
+        }
         return self;
     };
 }

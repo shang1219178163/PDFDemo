@@ -7,7 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "UIApplication+Appearance.h"
+
+#import "JFPdfViewController.h"
+#import "HomeViewController.h"
 
 @interface AppDelegate ()
 
@@ -18,13 +21,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[ViewController alloc] init]];
+    UIViewController *vc = [[JFPdfViewController alloc] init];
+//    vc = [[HomeViewController alloc] init];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [self.window makeKeyAndVisible];
+    
+    [UIApplication setupAppearance:UIColor.whiteColor barTintColor:UIColor.systemBlueColor];
     
     return YES;
 }
@@ -56,5 +63,12 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    NSLog(@"%@\n%@", url.absoluteString.stringByRemovingPercentEncoding, options);
+    return true;
+}
 
 @end
